@@ -224,10 +224,22 @@ void splayTree::deletion( int nr ) {
             while ( nodAux->getFiu( 1 ) != nullptr )
                 nodAux = nodAux->getFiu( 1 );
             nodCurent->setVal( nodAux->getVal() );
-            if ( nodAux->getTata()->getFiu( 1 ) == nodAux )
-                nodAux->getTata()->setFiu( 1, nullptr );
-            else
-                nodAux->getTata()->setFiu( 2, nullptr );
+            if ( nodAux->getFiu( 2 ) == nullptr ) {
+                if ( nodAux->getTata()->getFiu( 1 ) == nodAux )
+                    nodAux->getTata()->setFiu( 1, nullptr );
+                else
+                    nodAux->getTata()->setFiu( 2, nullptr );
+            }
+            else {
+                if ( nodAux->getTata()->getFiu( 1 ) == nodAux ) {
+                    nodAux->getTata()->setFiu( 1, nodAux->getFiu( 2 ) );
+                    nodAux->getFiu( 2 )->setTata( nodAux->getTata() );
+                }
+                else{
+                    nodAux->getTata()->setFiu( 2, nodAux->getFiu( 2 ) );
+                    nodAux->getFiu( 2 )->setTata( nodAux->getTata() );
+                }
+            }
             delete nodAux;
         }
     }
