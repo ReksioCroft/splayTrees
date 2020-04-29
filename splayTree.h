@@ -17,7 +17,7 @@ class splayTree {
 public:
     splayTree();
 
-    ~splayTree();
+   // ~splayTree();
 
     void insert( int nr );
 };

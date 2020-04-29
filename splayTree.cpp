@@ -29,7 +29,7 @@ void splayTree::bstInsert( nod* nodNou ) {
             lastMove = 2;
         }
     }
-    nodCurent->getTata()->setFiu( lastMove, nodCurent );
+    nodNou->getTata()->setFiu( lastMove, nodCurent );
 }
 
 void splayTree::splay( nod* nodCurent ) {
@@ -78,31 +78,43 @@ void splayTree::splay( nod* nodCurent ) {
 }
 
 void splayTree::splayRight( nod* nodCurent ) {
+    nod* nodTata = nodCurent->getTata();
     if ( nodCurent->getTata() == radacina ) {
-        if ( nodCurent->getFiu( 2 ) != nullptr )
-            nodCurent->getFiu( 2 )->setTata( radacina );
-        radacina->setFiu( 1, nodCurent->getFiu( 2 ) );
-        radacina->setTata( nodCurent );
         nodCurent->setTata( nullptr );
-        nodCurent->setFiu( 2, radacina );
         radacina = nodCurent;
     }
     else {
-        ///Todo
+        if ( nodTata->getTata()->getFiu( 1 ) == nodTata )
+            nodTata->getTata()->setFiu( 1, nodCurent );
+        else
+            nodTata->getTata()->setFiu( 2, nodCurent );
+        nodCurent->setTata( nodTata->getTata() );
     }
+
+    if ( nodCurent->getFiu( 2 ) != nullptr )
+        nodCurent->getFiu( 2 )->setTata( nodTata );
+    nodTata->setFiu( 1, nodCurent->getFiu( 2 ) );
+    nodTata->setTata( nodCurent );
+    nodCurent->setFiu( 2, nodTata );
 }
 
 void splayTree::splayLeft( nod* nodCurent ) {
+    nod* nodTata = nodCurent->getTata();
     if ( nodCurent->getTata() == radacina ) {
-        if ( nodCurent->getFiu( 1 ) != nullptr )
-            nodCurent->getFiu( 1 )->setTata( radacina );
-        radacina->setFiu( 2, nodCurent->getFiu( 1 ) );
-        radacina->setTata( nodCurent );
         nodCurent->setTata( nullptr );
-        nodCurent->setFiu( 1, radacina );
         radacina = nodCurent;
     }
-    else{
-        ///Todo
+    else {
+        if ( nodTata->getTata()->getFiu( 1 ) == nodTata )
+            nodTata->getTata()->setFiu( 1, nodCurent );
+        else
+            nodTata->getTata()->setFiu( 2, nodCurent );
+        nodCurent->setTata( nodTata->getTata() );
     }
+
+    if ( nodCurent->getFiu( 1 ) != nullptr )
+        nodCurent->getFiu( 1 )->setTata( nodTata );
+    nodTata->setFiu( 2, nodCurent->getFiu( 1 ) );
+    nodTata->setTata( nodCurent );
+    nodCurent->setFiu( 1, nodTata );
 }

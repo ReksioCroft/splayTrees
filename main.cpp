@@ -1,6 +1,9 @@
 #include <iostream>
-
+#include "splayTree.h"
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    splayTree tree;
+    tree.insert(5);
+    tree.insert(7);
+    tree.insert(8);
     return 0;
 }
