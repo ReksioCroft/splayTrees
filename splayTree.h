@@ -1,7 +1,9 @@
 #ifndef SPLAYTREES_SPLAYTREE_H
 #define SPLAYTREES_SPLAYTREE_H
 
+
 #include "nod.h"
+
 
 class splayTree {
     nod* radacina;
@@ -14,12 +16,20 @@ class splayTree {
 
     void splayRight( nod* nodCurent );
 
+    nod* findNodeByValue( int val, nod*& nodTata );
+
 public:
     splayTree();
 
-   // ~splayTree();
+    // ~splayTree();
 
     void insert( int nr );
+
+    void deletion( int nr );
+
+    bool find( int nr );
+
+    int lowerBound( int nr );
 };
 
 

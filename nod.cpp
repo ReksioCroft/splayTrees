@@ -1,14 +1,17 @@
 #include "nod.h"
 
+
 nod::nod( int nr ) {
     tata = fiu1 = fiu2 = nullptr;
     val = nr;
 }
 
+
 nod::~nod() {
     tata = fiu1 = fiu2 = nullptr;
     val = 0;
 }
+
 
 nod* nod::getFiu( int nrFiu ) {
     if ( nrFiu == 1 )
@@ -17,9 +20,11 @@ nod* nod::getFiu( int nrFiu ) {
         return fiu2;
 }
 
+
 nod* nod::getTata() {
     return tata;
 }
+
 
 void nod::setFiu( int nrFiu, nod* nodNou ) {
     if ( nrFiu == 1 )
@@ -28,13 +33,16 @@ void nod::setFiu( int nrFiu, nod* nodNou ) {
         fiu2 = nodNou;
 }
 
+
 void nod::setTata( nod* nodNou ) {
     tata = nodNou;
 }
 
+
 void nod::setVal( int nr ) {
     val = nr;
 }
+
 
 int nod::getVal() {
     return val;

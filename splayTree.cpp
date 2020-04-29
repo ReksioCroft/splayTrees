@@ -1,8 +1,10 @@
 #include "splayTree.h"
 
+
 splayTree::splayTree() {
     radacina = nullptr;
 }
+
 
 void splayTree::insert( int nr ) {
     nod* nodNou = new nod( nr );
@@ -14,6 +16,7 @@ void splayTree::insert( int nr ) {
         splay( nodNou );
     }
 }
+
 
 void splayTree::bstInsert( nod* nodNou ) {
     nod* nodCurent = radacina;
@@ -31,6 +34,7 @@ void splayTree::bstInsert( nod* nodNou ) {
     }
     nodNou->getTata()->setFiu( lastMove, nodCurent );
 }
+
 
 void splayTree::splay( nod* nodCurent ) {
     if ( nodCurent->getTata() == radacina ) {
@@ -77,6 +81,7 @@ void splayTree::splay( nod* nodCurent ) {
     }
 }
 
+
 void splayTree::splayRight( nod* nodCurent ) {
     nod* nodTata = nodCurent->getTata();
     if ( nodCurent->getTata() == radacina ) {
@@ -98,6 +103,7 @@ void splayTree::splayRight( nod* nodCurent ) {
     nodCurent->setFiu( 2, nodTata );
 }
 
+
 void splayTree::splayLeft( nod* nodCurent ) {
     nod* nodTata = nodCurent->getTata();
     if ( nodCurent->getTata() == radacina ) {
@@ -117,4 +123,82 @@ void splayTree::splayLeft( nod* nodCurent ) {
     nodTata->setFiu( 2, nodCurent->getFiu( 1 ) );
     nodTata->setTata( nodCurent );
     nodCurent->setFiu( 1, nodTata );
+}
+
+
+nod* splayTree::findNodeByValue( int val, nod*& nodTata ) {
+    nod* nodCurent = nodTata = radacina;
+    while ( nodCurent != nullptr ) {
+        nodTata = nodCurent;
+        if ( nodCurent->getVal() == val )
+            return nodCurent;
+        else if ( val < nodCurent->getVal() )
+            nodCurent = nodCurent->getFiu( 1 );
+        else
+            nodCurent = nodCurent->getFiu( 2 );
+    }
+    return nodCurent;
+}
+
+
+bool splayTree::find( int nr ) {
+    if ( radacina == nullptr )
+        return false;
+    nod* nodUltim;
+    nod* nodCautat = findNodeByValue( nr, nodUltim );
+    if ( nodCautat == nullptr ) {
+        splay( nodUltim );
+        return false;
+    }
+    else {
+        splay( nodCautat );
+        return true;
+    }
+}
+
+
+void splayTree::deletion( int nr ) {
+    nod* nodUltim;
+    nod* nodCurent = findNodeByValue( nr, nodUltim );
+
+    if ( nodCurent != nullptr ) {
+        if ( nodCurent->getFiu( 1 ) == nullptr && nodCurent->getFiu( 2 ) == nullptr ) {
+            if ( nodUltim->getFiu( 1 ) == nodCurent )
+                nodUltim->setFiu( 1, nullptr );
+            else
+                nodUltim->setFiu( 2, nullptr );
+            delete nodCurent;
+        }
+        else if ( nodCurent->getFiu( 1 ) != nullptr && nodCurent->getFiu( 2 ) == nullptr ) {
+            nodCurent->getFiu( 1 )->setTata( nodUltim );
+            if ( nodUltim->getFiu( 1 ) == nodCurent )
+                nodUltim->setFiu( 1, nodCurent->getFiu( 1 ) );
+            else
+                nodUltim->setFiu( 2, nodCurent->getFiu( 1 ) );
+            delete nodCurent;
+        }
+        else if ( nodCurent->getFiu( 2 ) != nullptr && nodCurent->getFiu( 1 ) == nullptr ) {
+            nodCurent->getFiu( 2 )->setTata( nodUltim );
+            if ( nodUltim->getFiu( 1 ) == nodCurent )
+                nodUltim->setFiu( 1, nodCurent->getFiu( 2 ) );
+            else
+                nodUltim->setFiu( 2, nodCurent->getFiu( 2 ) );
+            delete nodCurent;
+        }
+        else {
+            nod* nodAux = nodCurent->getFiu( 2 );
+            while ( nodAux->getFiu( 1 ) != nullptr )
+                nodAux = nodAux->getFiu( 1 );
+            nodCurent->setVal( nodAux->getVal() );
+            nodAux->getTata()->setFiu( 1, nullptr );
+            delete nodAux;
+        }
+    }
+    if ( nodUltim != nullptr )
+        splay( nodUltim );
+}
+
+
+int splayTree::lowerBound( int nr ) {
+    
 }
