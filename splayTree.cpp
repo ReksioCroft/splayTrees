@@ -200,5 +200,5 @@ void splayTree::deletion( int nr ) {
 
 
 int splayTree::lowerBound( int nr ) {
-    
+
 }
