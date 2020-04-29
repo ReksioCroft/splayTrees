@@ -10,26 +10,22 @@ int main() {
     fin >> nr;
     for ( i = 0; i < nr; i++ ) {
         fin >> test >> x;
-        switch ( test ) {
-            case 1:
-                tree.insert( x );
-                break;
-            case 2:
-                tree.deletion( x );
-                break;
-            case 3:
-                fout << tree.find( x ) << "\n";
-                break;
-            case 4:
-                fout << tree.lowerBound( x ) << "\n";
-                break;
-            case 5:
-                fout << tree.upperBound( x ) << "\n";
-                break;
-            case 6:
-                fin >> y;
-                tree.afisInterval( fout, x, y );
+        if ( test == 1 )
+            tree.insert( x );
+        else if ( test == 2 )
+            tree.deletion( x );
+        else if ( test == 3 )
+            fout << tree.find( x ) << "\n";
+        else if ( test == 4 )
+            fout << tree.lowerBound( x ) << "\n";
+        else if ( test == 5 )
+            fout << tree.upperBound( x ) << "\n";
+        else {
+            fin >> y;
+            tree.afisInterval( fout, x, y );
         }
+
+
     }
     fin.close();
     fout.close();

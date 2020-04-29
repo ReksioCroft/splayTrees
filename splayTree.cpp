@@ -6,6 +6,12 @@ splayTree::splayTree() {
 }
 
 
+splayTree::~splayTree() {
+    while ( radacina != nullptr )
+        deletion( radacina->getVal() );
+}
+
+
 void splayTree::insert( int nr ) {
     nod* nodNou = new nod( nr );
     if ( radacina == nullptr ) {
@@ -254,8 +260,8 @@ nod* splayTree::getRadacina() {
 void splayTree::interval( std::ostream& output, nod* nodCurent, int lowerBound, int upperBound ) {
     if ( nodCurent->getFiu( 1 ) != nullptr && nodCurent->getVal() >= lowerBound )
         interval( output, nodCurent->getFiu( 1 ), lowerBound, upperBound );
-    if ( nodCurent->getVal()>=lowerBound && nodCurent->getVal()<=upperBound)
-        output<<nodCurent->getVal()<<" ";
+    if ( nodCurent->getVal() >= lowerBound && nodCurent->getVal() <= upperBound )
+        output << nodCurent->getVal() << " ";
     if ( nodCurent->getFiu( 2 ) != nullptr && nodCurent->getVal() <= upperBound )
         interval( output, nodCurent->getFiu( 1 ), lowerBound, upperBound );
 }
@@ -263,5 +269,5 @@ void splayTree::interval( std::ostream& output, nod* nodCurent, int lowerBound, 
 
 void splayTree::afisInterval( std::ostream& output, int lowerBound, int upperBound ) {
     interval( output, radacina, lowerBound, upperBound );
-    output<<'\n';
+    output << '\n';
 }
