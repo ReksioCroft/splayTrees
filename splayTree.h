@@ -1,20 +1,25 @@
-//
-// Created by reksio on 4/29/20.
-//
-
 #ifndef SPLAYTREES_SPLAYTREE_H
 #define SPLAYTREES_SPLAYTREE_H
 
 #include "nod.h"
 
 class splayTree {
-    nod *radacina;
+    nod* radacina;
+
+    void bstInsert( nod* nodNou );
+
+    void splay( nod* nodCurent );
+
+    void splayLeft( nod* nodCurent );
+
+    void splayRight( nod* nodCurent );
+
 public:
     splayTree();
 
     ~splayTree();
 
-    void insert(int nr);
+    void insert( int nr );
 };
 
 

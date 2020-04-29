@@ -1,7 +1,3 @@
-//
-// Created by reksio on 4/29/20.
-//
-
 #ifndef SPLAYTREES_NOD_H
 #define SPLAYTREES_NOD_H
 
@@ -14,15 +10,17 @@ class nod {
 public:
     explicit nod(int nr = 0);
 
-    nod *get_fiu(int nrFiu);
+    nod *getFiu(int nrFiu);
 
-    void set_fiu(inr nrFiu, nod *nodNou);
+    void setFiu(int nrFiu, nod *nodNou);
 
-    void set_val(int nr);
+    void setVal(int nr);
 
-    nod *get_tata();
+    nod *getTata();
 
-    void set_tata(nod *nodNou);
+    void setTata(nod *nodNou);
+
+    int getVal();
 
     ~nod();
 };
