@@ -38,7 +38,7 @@ void splayTree::bstInsert( nod* nodNou ) {
             lastMove = 2;
         }
     }
-    nodNou->getTata()->setFiu( lastMove, nodCurent );
+    nodNou->getTata()->setFiu( lastMove, nodNou );
 }
 
 
@@ -136,7 +136,8 @@ nod* splayTree::findNodeByValue( int val, nod*& nodTata, nod*& lowerBound, nod*&
     nod* nodCurent = nodTata = radacina;
     lowerBound = upperBound = nullptr;
     while ( nodCurent != nullptr ) {
-        nodTata = nodCurent;
+        if ( nodCurent->getVal() != val )
+            nodTata = nodCurent;
         if ( ( lowerBound == nullptr || lowerBound->getVal() < nodCurent->getVal() ) && nodCurent->getVal() <= val )
             lowerBound = nodCurent;
         if ( ( upperBound == nullptr || upperBound->getVal() > nodCurent->getVal() ) && nodCurent->getVal() >= val )
@@ -223,7 +224,10 @@ void splayTree::deletion( int nr ) {
             while ( nodAux->getFiu( 1 ) != nullptr )
                 nodAux = nodAux->getFiu( 1 );
             nodCurent->setVal( nodAux->getVal() );
-            nodAux->getTata()->setFiu( 1, nullptr );
+            if ( nodAux->getTata()->getFiu( 1 ) == nodAux )
+                nodAux->getTata()->setFiu( 1, nullptr );
+            else
+                nodAux->getTata()->setFiu( 2, nullptr );
             delete nodAux;
         }
     }
@@ -263,7 +267,7 @@ void splayTree::interval( std::ostream& output, nod* nodCurent, int lowerBound, 
     if ( nodCurent->getVal() >= lowerBound && nodCurent->getVal() <= upperBound )
         output << nodCurent->getVal() << " ";
     if ( nodCurent->getFiu( 2 ) != nullptr && nodCurent->getVal() <= upperBound )
-        interval( output, nodCurent->getFiu( 1 ), lowerBound, upperBound );
+        interval( output, nodCurent->getFiu( 2 ), lowerBound, upperBound );
 }
 
 
