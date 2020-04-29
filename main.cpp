@@ -18,10 +18,17 @@ int main() {
                 tree.deletion( x );
                 break;
             case 3:
-                fout << tree.find( nr );
+                fout << tree.find( x ) << "\n";
                 break;
             case 4:
-                fout << tree.lowerBound(nr);
+                fout << tree.lowerBound( x ) << "\n";
+                break;
+            case 5:
+                fout << tree.upperBound( x ) << "\n";
+                break;
+            case 6:
+                fin >> y;
+                tree.afisInterval( fout, x, y );
         }
     }
     fin.close();

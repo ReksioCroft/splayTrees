@@ -3,6 +3,7 @@
 
 
 #include "nod.h"
+#include "fstream"
 
 
 class splayTree {
@@ -16,7 +17,9 @@ class splayTree {
 
     void splayRight( nod* nodCurent );
 
-    nod* findNodeByValue( int val, nod*& nodTata );
+    nod* findNodeByValue( int val, nod*& nodTata, nod*& lowerBound, nod*& upperBound );
+
+    void interval( std::ostream& output, nod* nodCurent, int lowerBound, int uperBound );
 
 public:
     splayTree();
@@ -30,6 +33,12 @@ public:
     bool find( int nr );
 
     int lowerBound( int nr );
+
+    int upperBound( int nr );
+
+    void afisInterval( std::ostream& output, int lowerBound, int uperBound );
+
+    nod* getRadacina();
 };
 
 
